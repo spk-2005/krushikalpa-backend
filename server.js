@@ -133,16 +133,7 @@ app.get("/users/:email", async (req, res) => {
   }
   res.json(user);
 });
-
-const productSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  category: { type: String, required: true },
-  buyingPrice: { type: Number, required: true },
-  sellingPrice: { type: Number, required: true },
-  per: { type: String, required: true },
-  image: { type: Buffer } // Store image as binary data
-});
-const Product = mongoose.model('Product', productSchema);
+const Product = require('./models/products'); 
 app.get('/fproducts', async (req, res) => {
   try {
       const products = await Product.find();
@@ -162,7 +153,7 @@ app.get('/fproducts', async (req, res) => {
 const User = mongoose.model('users', userSchema);
 
 
-const ConsumerUser = require('../backend/models/consumerschema'); // Import Consumer schema
+const ConsumerUser = require('./models/consumerschema'); // Import Consumer schema
 
 app.post('/login', async (req, res) => {
   const { email, userType } = req.body;
